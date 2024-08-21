@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .display {
+            background: #333;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: right;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            padding: 20px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #f4f4f4;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #e0e0e0;
+        }
+
+        .operator {
+            background: #007BFF;
+            color: #fff;
+        }
+
+        .operator:hover {
+            background: #0056b3;
+        }
+
+        .equals {
+            grid-column: span 4;
+            background: #28a745;
+            color: #fff;
+        }
+
+        .equals:hover {
+            background: #218838;
+        }
+
+        .clear {
+            grid-column: span 2;
+            background: #dc3545;
+            color: #fff;
+        }
+
+        .clear:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <button class="clear">C</button>
+            <button class="operator">/</button>
+            <button class="operator">*</button>
+            <button class="operator">-</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button class="operator">+</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button class="operator">^</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button class="equals">=</button>
+            <button>0</button>
+            <button>.</button>
+            <button class="operator">√</button>
+            <button class="operator">sin</button>
+            <button class="operator">cos</button>
+            <button class="operator">tan</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+        const buttons = Array.from(document.querySelectorAll('button'));
+        let currentInput = '';
+        let operator = '';
+        let operand1 = '';
+        let operand2 = '';
+
+        function evaluateExpression(expression) {
+            try {
+                // Handle scientific operations separately
+                if (expression.includes('√')) {
+                    return Math.sqrt(parseFloat(expression.replace('√', '')));
+                }
+                if (expression.includes('^')) {
+                    const [base, exp] = expression.split('^').map(Number);
+                    return Math.pow(base, exp);
+                }
+                if (expression.includes('sin')) {
+                    return Math.sin(parseFloat(expression.replace('sin', '')) * Math.PI / 180);
+                }
+                if (expression.includes('cos')) {
+                    return Math.cos(parseFloat(expression.replace('cos', '')) * Math.PI / 180);
+                }
+                if (expression.includes('tan')) {
+                    return Math.tan(parseFloat(expression.replace('tan', '')) * Math.PI / 180);
+                }
+                // Evaluate arithmetic operations
+                return eval(expression);
+            } catch (error) {
+                return 'Error';
+            }
+        }
+
+        buttons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const value = e.target.textContent;
+                if (value === 'C') {
+                    display.textContent = '0';
+                    currentInput = '';
+                    operand1 = '';
+                    operand2 = '';
+                    operator = '';
+                } else if (value === '=') {
+                    currentInput = display.textContent;
+                    display.textContent = evaluateExpression(currentInput);
+                    currentInput = display.textContent;
+                } else if (['+', '-', '*', '/', '^', '√', 'sin', 'cos', 'tan'].includes(value)) {
+                    if (operator) {
+                        operand2 = currentInput;
+                        currentInput = `${operand1} ${operator} ${operand2}`;
+                        display.textContent = evaluateExpression(currentInput);
+                        operand1 = display.textContent;
+                        operand2 = '';
+                    } else {
+                        operand1 = currentInput;
+                        currentInput = '';
+                        display.textContent = '';
+                    }
+                    operator = value;
+                } else {
+                    if (display.textContent === '0') {
+                        display.textContent = value;
+                    } else {
+                        display.textContent += value;
+                    }
+                    currentInput = display.textContent;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

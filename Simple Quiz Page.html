@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .quiz-container {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #444;
+        }
+
+        .option {
+            display: block;
+            margin: 10px 0;
+        }
+
+        .option input {
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            color: #ffffff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            color: #444;
+        }
+
+        .feedback {
+            text-align: center;
+            font-size: 1rem;
+            color: #d9534f;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .quiz-container {
+                padding: 15px;
+            }
+
+            .question h2 {
+                font-size: 1rem;
+            }
+
+            .submit-btn {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Simple Quiz</h1>
+        <div id="quiz">
+            <!-- Questions will be inserted here -->
+        </div>
+        <button class="submit-btn" id="submit-btn">Submit</button>
+        <div class="result" id="result"></div>
+        <div class="feedback" id="feedback"></div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the capital of France?",
+                options: ["Berlin", "Madrid", "Paris", "Rome"],
+                answer: "Paris"
+            },
+            {
+                question: "What is 2 + 2?",
+                options: ["3", "4", "5", "6"],
+                answer: "4"
+            },
+            {
+                question: "What is the largest ocean on Earth?",
+                options: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+                answer: "Pacific Ocean"
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz');
+        const submitBtn = document.getElementById('submit-btn');
+        const resultContainer = document.getElementById('result');
+        const feedbackContainer = document.getElementById('feedback');
+
+        function renderQuiz() {
+            quizContainer.innerHTML = questions.map((q, index) => `
+                <div class="question">
+                    <h2>${index + 1}. ${q.question}</h2>
+                    ${q.options.map(option => `
+                        <label class="option">
+                            <input type="radio" name="q${index}" value="${option}">
+                            ${option}
+                        </label>
+                    `).join('')}
+                </div>
+            `).join('');
+        }
+
+        function calculateScore() {
+            let score = 0;
+            let feedback = [];
+
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selectedOption) {
+                    const answer = selectedOption.value;
+                    if (answer === q.answer) {
+                        score++;
+                    } else {
+                        feedback.push(`Q${index + 1}: Correct answer is "${q.answer}", but you chose "${answer}".`);
+                    }
+                } else {
+                    feedback.push(`Q${index + 1}: No answer selected.`);
+                }
+            });
+
+            return { score, feedback };
+        }
+
+        function showResult() {
+            const { score, feedback } = calculateScore();
+            resultContainer.textContent = `You scored ${score} out of ${questions.length}`;
+            feedbackContainer.innerHTML = feedback.map(f => `<p>${f}</p>`).join('');
+        }
+
+        renderQuiz();
+
+        submitBtn.addEventListener('click', showResult);
+    </script>
+</body>
+</html>

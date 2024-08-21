@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Resume</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .header-title {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .header-subtitle {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #bbb;
+        }
+
+        .section {
+            background: #fff;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .section p, .section ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .section ul {
+            list-style: none;
+        }
+
+        .section ul li {
+            background: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .section ul li:last-child {
+            border-bottom: none;
+        }
+
+        .contact-info a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            margin: 0 10px;
+            color: #fff;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: #007BFF;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 15px;
+            }
+
+            .header-title {
+                font-size: 1.5rem;
+            }
+
+            .header-subtitle {
+                font-size: 1rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="header-title">John Doe</h1>
+            <p class="header-subtitle">Web Developer & Designer</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="section">
+            <h2>About Me</h2>
+            <p>Hello! I'm John Doe, a passionate Web Developer and Designer with over 5 years of experience. I specialize in creating dynamic and beautiful web applications and websites. My goal is to build products that are both functional and aesthetically pleasing.</p>
+        </section>
+
+        <section class="section">
+            <h2>Experience</h2>
+            <ul>
+                <li>
+                    <strong>Senior Web Developer at TechCorp</strong><br>
+                    <em>January 2020 - Present</em><br>
+                    Responsible for leading the web development team, designing scalable applications, and ensuring code quality.
+                </li>
+                <li>
+                    <strong>Web Developer at WebSolutions</strong><br>
+                    <em>June 2016 - December 2019</em><br>
+                    Developed and maintained client websites, implemented new features, and optimized site performance.
+                </li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Education</h2>
+            <ul>
+                <li>
+                    <strong>Bachelor of Science in Computer Science</strong><br>
+                    <em>University of Tech - 2016</em>
+                </li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Skills</h2>
+            <ul>
+                <li>HTML, CSS, JavaScript</li>
+                <li>React, Angular, Vue.js</li>
+                <li>Node.js, Express</li>
+                <li>Responsive Design</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Contact</h2>
+            <div class="contact-info">
+                <p>Email: <a href="mailto:john.doe@example.com">john.doe@example.com</a></p>
+                <p>Phone: <a href="tel:+1234567890">+1 (234) 567-890</a></p>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/johndoe" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/johndoe" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 John Doe</p>
+    </footer>
+</body>
+</html>
